@@ -64,6 +64,10 @@
         "AppImage"
       ],
       "category": "Graphics"
+    },
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
     }
   }
 }

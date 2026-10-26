@@ -21,7 +21,7 @@ npm run dist     # build cho hệ điều hành hiện tại, kết quả ở di
 
 Workflow `.github/workflows/release.yml` build trên macOS (dmg arm64 + x64), Windows (exe) và Linux (AppImage).
 
-- Push tag `vX.Y.Z` (khớp `version` trong `package.json`) → tạo **draft** GitHub Release kèm file cài; vào Releases bấm Publish.
+- Push tag `vX.Y.Z` (khớp `version` trong `package.json`) → tự tạo và công khai GitHub Release kèm file cài.
 - Chạy tay ("Run workflow") → chỉ build, tải file cài ở mục Artifacts của lần chạy.
 
 ## Lưu ý cho người dùng
