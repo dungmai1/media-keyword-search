@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https: data:; media-src https:; connect-src 'self'" />
+  <title>Media Keyword Search</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Media Keyword Search</h1>
+      <p class="sub">Tìm ảnh &amp; video từ <b>Pexels</b> và <b>Pixabay</b> theo danh sách keyword</p>
+    </div>
+    <button type="button" id="openSettings">⚙ API keys</button>
+  </header>
+
+  <dialog id="settings">
+    <form id="settingsForm" method="dialog">
+      <h2>API keys</h2>
+      <p class="hint">Key chỉ được lưu trên máy này và chỉ gửi tới Pexels/Pixabay khi tìm kiếm. Để trống để giữ key hiện tại.</p>
+
+      <div class="field">
+        <span>Pexels <i class="dot" data-key="pexels"></i> <small class="current" data-key="pexels"></small></span>
+        <div class="key-row">
+          <input type="password" name="pexels" autocomplete="off" spellcheck="false" placeholder="Dán Pexels API key" />
+          <button type="button" class="toggle">Hiện</button>
+        </div>
+        <small><a href="https://www.pexels.com/api/" target="_blank" rel="noopener">Lấy key Pexels</a> · <label class="clear"><input type="checkbox" name="clear-pexels" /> Xoá key</label></small>
+        <small class="test" data-key="pexels"></small>
+      </div>
+
+      <div class="field">
+        <span>Pixabay <i class="dot" data-key="pixabay"></i> <small class="current" data-key="pixabay"></small></span>
+        <div class="key-row">
+          <input type="password" name="pixabay" autocomplete="off" spellcheck="false" placeholder="Dán Pixabay API key" />
+          <button type="button" class="toggle">Hiện</button>
+        </div>
+        <small><a href="https://pixabay.com/api/docs/" target="_blank" rel="noopener">Lấy key Pixabay</a> · <label class="clear"><input type="checkbox" name="clear-pixabay" /> Xoá key</label></small>
+        <small class="test" data-key="pixabay"></small>
+      </div>
+
+      <p id="settingsStatus" class="status" role="status"></p>
+      <div class="dialog-actions">
+        <button type="button" id="closeSettings">Đóng</button>
+        <button type="submit" id="saveSettings" class="primary">Lưu &amp; kiểm tra</button>
+      </div>
+    </form>
+  </dialog>
+
+  <main>
+    <form id="form" class="panel">
+      <label class="field">
+        <span>Keywords <small>(mỗi dòng một keyword, hoặc cách nhau bằng dấu phẩy)</small></span>
+        <textarea id="keywords" rows="5" placeholder="sunset beach&#10;city night&#10;coffee shop"></textarea>
+      </label>
+
+      <div class="options">
+        <fieldset>
+          <legend>Loại</legend>
+          <label><input type="checkbox" name="types" value="photo" checked /> Ảnh</label>
+          <label><input type="checkbox" name="types" value="video" checked /> Video</label>
+        </fieldset>
+        <fieldset>
+          <legend>Nguồn</legend>
+          <label><input type="checkbox" name="providers" value="pexels" checked /> Pexels <i class="dot" data-key="pexels"></i></label>
+          <label><input type="checkbox" name="providers" value="pixabay" checked /> Pixabay <i class="dot" data-key="pixabay"></i></label>
+        </fieldset>
+        <fieldset>
+          <legend>Số kết quả / nguồn</legend>
+          <input type="number" id="perPage" min="1" max="80" value="10" />
+        </fieldset>
+        <button type="submit" id="submit">Tìm kiếm</button>
+      </div>
+      <p id="status" class="status" role="status"></p>
+    </form>
+
+    <div id="results"></div>
+  </main>
+
+  <template id="tpl-group">
+    <section class="group">
+      <div class="group-head">
+        <h2></h2>
+        <span class="count"></span>
+        <div class="filters">
+          <button type="button" data-filter="all" class="active">Tất cả</button>
+          <button type="button" data-filter="photo">Ảnh</button>
+          <button type="button" data-filter="video">Video</button>
+        </div>
+        <button type="button" class="copy">Copy links</button>
+      </div>
+      <ul class="errors"></ul>
+      <div class="grid"></div>
+    </section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
